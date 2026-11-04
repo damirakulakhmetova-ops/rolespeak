@@ -99,9 +99,9 @@ These events are logged to the console and forwarded to Meta Pixel (`window.fbq`
 
 ## Live links
 
-- Landing: `https://<your-project>.vercel.app/`
-- App: `https://<your-project>.vercel.app/practice`
-- Demo: `https://<your-project>.vercel.app/practice?demo=1`
+- Landing: https://rolespeak.vercel.app/
+- App: https://rolespeak.vercel.app/practice
+- Demo: https://rolespeak.vercel.app/practice?demo=1
 
 ## Team
 
