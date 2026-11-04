@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+/* Palette taken from the RoleSpeak landing page. */
+@theme {
+  --color-ink: #123343;
+  --color-ink-soft: #59707b;
+  --color-teal: #078a80;
+  --color-teal-dark: #066e68;
+  --color-soft: #eaf7f2;
+  --color-mint: #f6fbf8;
+  --color-line: #d7e6e2;
+  --color-sky: #e8f4fc;
+  --color-sky-ink: #1d5f8a;
+  --color-paper: #fbfcfa;
+  --color-night: #0b2532;
+  --font-sans: var(--font-inter), system-ui, Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+}
+
+@keyframes rs-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(7, 138, 128, 0.45); }
+  70% { box-shadow: 0 0 0 22px rgba(7, 138, 128, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(7, 138, 128, 0); }
+}
+.rs-pulse { animation: rs-pulse 1.4s infinite; }
+
+@keyframes rs-dots { 0%, 80%, 100% { opacity: 0.25; } 40% { opacity: 1; } }
+.rs-dot { animation: rs-dots 1.2s infinite; }
+.rs-dot:nth-child(2) { animation-delay: 0.15s; }
+.rs-dot:nth-child(3) { animation-delay: 0.3s; }
