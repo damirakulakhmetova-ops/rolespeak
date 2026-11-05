@@ -27,7 +27,7 @@ _Add screenshots here (landing, roleplay, feedback, paywall)._
 ## Stack
 
 - **Next.js 16** (App Router) + **TypeScript** + **Tailwind CSS v4**, deployed on **Vercel** (free tier)
-- **Google Gemini API**, called **only** from server route handlers (`/api/patient`, `/api/score`). The API key never reaches the browser.
+- **DeepSeek V4.1 Flash** (`deepseek-flash`) through DeepSeek's OpenAI-compatible API, called **only** from server route handlers (`/api/patient`, `/api/score`). The API key never reaches the browser.
 - **Speech to text**: the browser Web Speech API (`en-GB`), push-to-talk. Unsupported browsers show "Voice works best in Chrome" and fall back to typing.
 - **Patient voice**: the browser `speechSynthesis` (a British English voice when one is available)
 - **No database**: results are kept in `localStorage`, and leads are `POST`ed to `/api/lead` and logged (a placeholder for a CRM)
@@ -39,14 +39,14 @@ src/
   app/
     page.tsx                 Landing "/" (converted from the original landing HTML)
     practice/page.tsx        The app "/practice"
-    api/patient/route.ts     AI patient reply (Gemini)
-    api/score/route.ts       OET-style assessment (Gemini, JSON, validated, one retry)
+    api/patient/route.ts     AI patient reply (DeepSeek)
+    api/score/route.ts       OET-style assessment (DeepSeek, JSON, validated, one retry)
     api/lead/route.ts        Lead capture (logs; CRM placeholder)
   components/practice/       Setup, Prepare, Roleplay, Feedback, Gap (paywall)
   lib/
     scenarios.ts             Role cards (client-safe)
     server/patientPrompts.ts Patient prompts (server-only)
-    server/gemini.ts         Gemini REST client with retries and a fallback model
+    server/llm.ts            DeepSeek Chat Completions client with retries
     scoring.ts               Criteria, score formula, grades, report validation
     speech.ts                Push-to-talk recognition + speech synthesis
     demo.ts                  Scripted demo conversation and report
@@ -63,7 +63,7 @@ The assessor returns 4 linguistic criteria (0–6 each) and 5 clinical communica
 
 ## Run locally
 
-Requirements: Node.js 20+ and a Gemini API key from [Google AI Studio](https://aistudio.google.com/apikey).
+Requirements: Node.js 20+ and a DeepSeek API key from [platform.deepseek.com](https://platform.deepseek.com/api_keys). Top up a few dollars of credit first: there is no free tier.
 
 ```bash
 git clone https://github.com/damirakulakhmetova-ops/rolespeak.git
@@ -79,13 +79,12 @@ Open http://localhost:3000 (landing) and http://localhost:3000/practice (app). U
 
 | Variable | Required | Default | What it does |
 | --- | --- | --- | --- |
-| `GEMINI_API_KEY` | yes | — | Google Gemini API key. Read only on the server. |
-| `GEMINI_MODEL` | no | `gemini-3.6-flash` | Model for the patient and the assessor. |
-| `GEMINI_FALLBACK_MODEL` | no | `gemini-3.5-flash-lite` | Used automatically when the main model is out of quota or overloaded. |
+| `DEEPSEEK_API_KEY` | yes | — | DeepSeek API key. Read only on the server. |
+| `DEEPSEEK_MODEL` | no | `deepseek-flash` | Model for the patient and the assessor (DeepSeek V4.1 Flash). |
 
 `.env.local` is gitignored. Never commit a real key.
 
-> **Quota note:** the Gemini **free tier** allows only a small number of requests per model per day (20 for `gemini-3.6-flash` when we tested). One roleplay uses about 10–15 requests: one per patient reply plus one for scoring. For a pitch or real users, turn on billing for the project in Google AI Studio (Tier 1).
+> **Cost note:** one roleplay uses about 10–15 requests (one per patient reply plus one for scoring), roughly 20k input and 2k output tokens. At DeepSeek's prices for `deepseek-flash` ($0.15–0.30 per 1M input tokens, $0.60–1.20 per 1M output tokens, with off-peak/peak rates) that is **under $0.01 per roleplay**. If the balance runs out, the app shows a friendly error, and demo mode keeps working.
 
 ## Demo mode
 

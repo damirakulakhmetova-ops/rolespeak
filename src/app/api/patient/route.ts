@@ -1,8 +1,8 @@
-import { callGemini, GeminiError, type GeminiMessage } from "@/lib/server/gemini";
+import { callLLM, llmErrorMessage, type LLMMessage } from "@/lib/server/llm";
 import { PATIENT_PROMPTS, PATIENT_STYLE_RULES } from "@/lib/server/patientPrompts";
 import { readBody } from "@/lib/server/validate";
 
-// Gemini calls (with retries) can take a while; allow up to 60s on Vercel.
+// LLM calls (with retries) can take a while; allow up to 60s on Vercel.
 export const maxDuration = 60;
 
 export async function POST(req: Request) {
@@ -14,22 +14,22 @@ export async function POST(req: Request) {
     return Response.json({ error: "The nurse must speak last" }, { status: 400 });
   }
 
-  // Gemini conversations start with a user turn, so the nurse "enters" first.
-  const messages: GeminiMessage[] = [
+  // The nurse "enters" first so the conversation starts with a user turn.
+  const messages: LLMMessage[] = [
     { role: "user", text: "(The nurse comes in to see you.)" },
-    ...turns.map<GeminiMessage>((t) => ({
-      role: t.speaker === "nurse" ? "user" : "model",
+    ...turns.map<LLMMessage>((t) => ({
+      role: t.speaker === "nurse" ? "user" : "assistant",
       text: t.text,
     })),
   ];
 
   try {
-    const raw = await callGemini({
+    const raw = await callLLM({
       system: `${PATIENT_PROMPTS[scenarioId]}\n\n${PATIENT_STYLE_RULES}`,
       messages,
       temperature: 0.8,
-      maxOutputTokens: 800,
-      thinkingLevel: "minimal",
+      maxTokens: 300,
+      reasoning: "off",
     });
     const reply = raw
       .replace(/\*[^*]*\*/g, "") // drop *stage directions*
@@ -38,18 +38,8 @@ export async function POST(req: Request) {
       .trim();
     return Response.json({ reply: reply || raw });
   } catch (e) {
-    const status = e instanceof GeminiError ? e.status : 500;
     console.error("[api/patient]", e instanceof Error ? e.message : e);
-    return Response.json(
-      {
-        error:
-          status === 503
-            ? "AI is not configured on the server."
-            : status === 429
-              ? "The AI patient has reached today's usage limit. Please try again later."
-              : "The patient could not reply. Please try again.",
-      },
-      { status },
-    );
+    const { status, error } = llmErrorMessage(e, "patient");
+    return Response.json({ error }, { status });
   }
 }

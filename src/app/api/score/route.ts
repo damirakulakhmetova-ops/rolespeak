@@ -1,9 +1,9 @@
 import { SCENARIOS } from "@/lib/scenarios";
 import { CRITERIA, finaliseReport, validateReport } from "@/lib/scoring";
-import { callGemini, GeminiError } from "@/lib/server/gemini";
+import { callLLM, LLMError, llmErrorMessage } from "@/lib/server/llm";
 import { readBody } from "@/lib/server/validate";
 
-// Gemini calls (with retries) can take a while; allow up to 60s on Vercel.
+// LLM calls (with retries) can take a while; allow up to 60s on Vercel.
 export const maxDuration = 60;
 
 const ASSESSOR =
@@ -19,7 +19,7 @@ Rules:
 - "criteria" has exactly these 9 keys with these max values: ${CRITERIA.map((c) => `${c.key} (max ${c.max})`).join(", ")}.
 - Each "comment" is ONE short sentence addressed to the candidate as "you", specific to this transcript.
 - "fixes" has exactly 3 items. "you_said" must be an exact quote of something the NURSE said. "better" is a more natural, patient-friendly version a grade-B nurse would say. "why" is one short sentence.
-- "tasks_covered" lists every role card task exactly as written, with covered true only if the nurse clearly did it.
+- "tasks_covered" lists every role card task exactly as written. covered is true if the nurse clearly addressed the task in substance, even if a minor detail was missing; false if the nurse skipped it or only touched on it in passing.
 - If the nurse said very little, score low.
 - Calibrate like a real OET assessor: top scores (6/6, 3/3) are rare and need near-flawless, natural performance; when unsure between two scores, choose the lower one.`;
 
@@ -53,12 +53,13 @@ ${transcript}`;
 
   for (let attempt = 1; attempt <= 2; attempt++) {
     try {
-      const raw = await callGemini({
+      const raw = await callLLM({
         system: `${ASSESSOR}\n\n${SCHEMA_HINT}`,
         messages: [{ role: "user", text: userMsg }],
         json: true,
+        reasoning: "off",
         temperature: 0.2,
-        maxOutputTokens: 4096,
+        maxTokens: 4096,
       });
       const cleaned = raw.replace(/^```(?:json)?\s*|\s*```$/g, "");
       const report = validateReport(JSON.parse(cleaned), scenario.tasks);
@@ -66,16 +67,12 @@ ${transcript}`;
       return Response.json(finaliseReport(report));
     } catch (e) {
       console.error(`[api/score] attempt ${attempt}:`, e instanceof Error ? e.message : e);
-      if (e instanceof GeminiError && e.status === 503) {
-        return Response.json({ error: "AI is not configured on the server." }, { status: 503 });
+      // Config, credit and rate-limit errors won't be fixed by asking again.
+      if (e instanceof LLMError && [503, 402, 429].includes(e.status)) {
+        const { status, error } = llmErrorMessage(e, "assessor");
+        return Response.json({ error }, { status });
       }
-      if (e instanceof GeminiError && e.status === 429) {
-        return Response.json(
-          { error: "Our AI assessor has reached today's usage limit. Please try again later." },
-          { status: 429 },
-        );
-      }
-      // Only invalid JSON / validation errors and upstream hiccups get one retry.
+      // Invalid JSON / validation errors and upstream hiccups get one retry.
     }
   }
   return Response.json(
