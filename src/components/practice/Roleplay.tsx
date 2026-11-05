@@ -31,6 +31,7 @@ export default function Roleplay({ demo, scenarioId, onFinish }: Props) {
   const [left, setLeft] = useState(ROLEPLAY_SECONDS);
   const [draft, setDraft] = useState("");
   const [notice, setNotice] = useState<string | null>(null);
+  const [showCard, setShowCard] = useState(true);
   const [replyError, setReplyError] = useState<string | null>(null);
   // A microphone error ends listening: hand the turn back to the nurse.
   const phase: Phase = rawPhase === "listening" && rec.error ? "your-turn" : rawPhase;
@@ -224,7 +225,7 @@ export default function Roleplay({ demo, scenarioId, onFinish }: Props) {
 
   return (
     // Fixed-height chat layout: only the transcript scrolls.
-    <div className="-mb-6 flex h-[calc(100dvh-6.5rem)] min-h-[520px] flex-col gap-3">
+    <div className="-mb-6 flex h-[calc(100dvh-6.5rem)] min-h-[540px] flex-col gap-3">
       {/* timer bar */}
       <div className="flex shrink-0 items-center justify-between gap-3">
         <div>
@@ -244,20 +245,25 @@ export default function Roleplay({ demo, scenarioId, onFinish }: Props) {
         </div>
       </div>
 
-      <details className="group shrink-0 rounded-2xl" open>
-        <summary className="cursor-pointer list-none rounded-xl bg-sky px-4 py-2 text-sm font-bold text-sky-ink">
-          <span className="group-open:hidden">Show role card ▾</span>
-          <span className="hidden group-open:inline">Hide role card ▴</span>
-        </summary>
-        <div className="mt-2 max-h-[28vh] overflow-y-auto rounded-2xl sm:max-h-none">
+      {/* Role card: collapsible, and allowed to shrink so the mic panel always fits. */}
+      <button
+        type="button"
+        onClick={() => setShowCard((v) => !v)}
+        aria-expanded={showCard}
+        className="shrink-0 rounded-xl bg-sky px-4 py-2 text-left text-sm font-bold text-sky-ink"
+      >
+        {showCard ? "Hide role card ▴" : "Show role card ▾"}
+      </button>
+      {showCard && (
+        <div className="max-h-[28vh] min-h-[72px] shrink overflow-y-auto rounded-2xl">
           <RoleCard scenario={scenario} compact />
         </div>
-      </details>
+      )}
 
       {/* transcript */}
       <div
         ref={scrollRef}
-        className="min-h-[120px] flex-1 space-y-3 overflow-y-auto rounded-2xl border border-line bg-white p-3"
+        className="min-h-[110px] flex-1 space-y-3 overflow-y-auto rounded-2xl border border-line bg-white p-3"
         aria-live="polite"
       >
         {turns.map((t, i) => (

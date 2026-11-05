@@ -7,8 +7,28 @@ import "./landing-styles/landing.css";
 // Converted from RoleSpeak_Landing_Page_With_Photos.html: same design and copy,
 // with every main call-to-action pointing to /practice.
 
-function Photo({ src, alt, priority }: { src: string; alt: string; priority?: boolean }) {
-  return <Image src={src} alt={alt} fill sizes="(max-width: 800px) 100vw, 560px" priority={priority} />;
+// Portrait photos in wide frames: anchor the crop near the top so faces stay visible.
+function Photo({
+  src,
+  alt,
+  priority,
+  focus = "50% 20%",
+}: {
+  src: string;
+  alt: string;
+  priority?: boolean;
+  focus?: string;
+}) {
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      fill
+      sizes="(max-width: 800px) 100vw, 560px"
+      priority={priority}
+      style={{ objectPosition: focus }}
+    />
+  );
 }
 
 export default function Home() {
@@ -65,7 +85,7 @@ export default function Home() {
               </div>
             </div>
             <div className="photo-frame hero-photo">
-              <Photo src="/images/hero-nurse.jpg" alt="Healthcare professional in teal scrubs" priority />
+              <Photo src="/images/hero-nurse.jpg" alt="Healthcare professional in teal scrubs" priority focus="50% 18%" />
               <div className="photo-caption">
                 Your expertise deserves to be heard.
                 <br />
@@ -127,15 +147,15 @@ export default function Home() {
             </div>
             <div className="photo-strip">
               <div className="photo-frame">
-                <Photo src="/images/doctor.jpg" alt="Doctor in a white coat" />
+                <Photo src="/images/doctor.jpg" alt="Doctor in a white coat" focus="50% 25%" />
                 <div className="photo-caption">For doctors</div>
               </div>
               <div className="photo-frame">
-                <Photo src="/images/nurse.jpg" alt="Healthcare professional in blue scrubs" />
+                <Photo src="/images/nurse.jpg" alt="Healthcare professional in blue scrubs" focus="50% 15%" />
                 <div className="photo-caption">For nurses</div>
               </div>
               <div className="photo-frame">
-                <Photo src="/images/global.jpg" alt="Healthcare professional in white clinical uniform" />
+                <Photo src="/images/global.jpg" alt="Doctor in green scrubs" focus="50% 15%" />
                 <div className="photo-caption">For future global careers</div>
               </div>
             </div>
@@ -185,7 +205,7 @@ export default function Home() {
               </p>
             </div>
             <div className="photo-frame" style={{ height: 540 }}>
-              <Photo src="/images/outcomes.jpg" alt="Doctor in green scrubs" />
+              <Photo src="/images/outcomes.jpg" alt="Healthcare professional in a light uniform and headscarf" focus="50% 20%" />
               <div className="photo-caption">More confident conversations can open new possibilities.</div>
             </div>
           </div>
