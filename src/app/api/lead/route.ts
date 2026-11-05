@@ -11,7 +11,12 @@ interface Lead {
   predicted?: number;
   grade?: string;
   price?: string;
+  plan?: string;
+  black_friday?: boolean;
+  source?: string;
 }
+
+const PLANS = ["last_minute", "exam_pass", "pro"];
 
 const s = (v: unknown, max = 200) => (typeof v === "string" ? v.trim().slice(0, max) : "");
 
@@ -38,6 +43,9 @@ export async function POST(req: Request) {
     predicted: typeof body.predicted === "number" ? body.predicted : undefined,
     grade: s(body.grade, 4),
     price: s(body.price, 20),
+    plan: PLANS.includes(s(body.plan, 20)) ? s(body.plan, 20) : undefined,
+    black_friday: typeof body.black_friday === "boolean" ? body.black_friday : undefined,
+    source: s(body.source, 20) || undefined,
   };
 
   if (!lead.name) return Response.json({ error: "Please enter your name." }, { status: 400 });

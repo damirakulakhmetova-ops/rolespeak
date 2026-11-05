@@ -6,9 +6,9 @@ import "./globals.css";
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "RoleSpeak | You know medicine. Speak it with confidence.",
+  title: "RoleSpeak | OET Speaking practice for nurses with an AI patient",
   description:
-    "Rehearse your OET Speaking roleplay with an AI patient and get your predicted grade in 10 minutes.",
+    "Practise the real OET Speaking role-play with an AI patient. Get a score on all 9 official criteria, a predicted grade and 3 fixes in 5 minutes. Free first role-play.",
 };
 
 export const viewport: Viewport = {
@@ -19,7 +19,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`}>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} h-full antialiased`}>
       <head>
         {/*
           Analytics placeholders. Paste the official snippets here when ready:

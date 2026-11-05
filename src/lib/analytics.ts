@@ -11,7 +11,8 @@ export type AnalyticsEvent =
   | "feedback_viewed"
   | "paywall_viewed"
   | "contact_submitted"
-  | "payment_viewed";
+  | "payment_viewed"
+  | "reserve_clicked";
 
 type Props = Record<string, string | number | boolean | undefined>;
 

@@ -40,13 +40,13 @@ const DATA: Record<Role, { title: string; info: string; prompt: string; answers:
 };
 
 const ROLES: [Role, string][] = [
-  ["doctor", "Doctor"],
   ["nurse", "Nurse"],
+  ["doctor", "Doctor"],
   ["student", "Medical student"],
 ];
 
 export default function LandingPreview() {
-  const [role, setRole] = useState<Role>("doctor");
+  const [role, setRole] = useState<Role>("nurse");
   const [picked, setPicked] = useState<number | null>(null);
   const s = DATA[role];
   const chosen = picked !== null ? s.answers[picked] : null;
@@ -57,9 +57,10 @@ export default function LandingPreview() {
         <div className="tag">Interactive preview</div>
         <h2>Try a conversation before the real one.</h2>
         <p className="lead">
-          Choose your role and respond to a patient. Get an example of the kind of communication feedback we&apos;re
-          building.
+          Choose your role and respond to a patient to see the kind of feedback you get. The full version is a live
+          voice role-play scored on all 9 OET Speaking criteria.
         </p>
+        <p className="live-note">Live AI voice role-play — try a free scene now.</p>
         <div className="tabs" role="tablist">
           {ROLES.map(([r, label]) => (
             <button
@@ -93,7 +94,7 @@ export default function LandingPreview() {
         <div aria-live="polite" className={`feedback${chosen ? " show" : ""}`}>
           {chosen ? (chosen[2] ? "✓ " : "Learning tip: ") + chosen[1] : ""}
         </div>
-        <p className="tiny">Educational preview only. Not clinical advice or an official OET assessment.</p>
+        <p className="tiny">Text sample only. Not clinical advice or an official OET assessment.</p>
       </div>
     </div>
   );

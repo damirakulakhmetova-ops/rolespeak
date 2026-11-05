@@ -108,3 +108,96 @@
 .lp .hero-photo{height:320px}
 .lp .photo-strip .photo-frame{height:240px}
 }
+
+/* ---------- Sales page additions ---------- */
+.lp [id]{scroll-margin-top:120px}
+.lp .btn.big{font-size:18px;padding:18px 28px;border-radius:14px;box-shadow:0 10px 26px #078a8040;background:#067a71}
+.lp .btn.big:hover{background:#055f58}
+.lp .btn:disabled{opacity:.6;cursor:wait}
+.lp .nav-btn{padding:10px 16px;font-size:14px}
+.lp .text-link{color:var(--teal);font-weight:750;align-self:center;padding:8px 4px}
+.lp .actions{align-items:center}
+.lp .micro{font-size:14px;color:#456069;font-weight:600;margin:6px 0 0}
+.lp .trust{font-size:13px;color:#647b84;margin:18px 0 0;padding-left:12px;border-left:3px solid var(--teal)}
+.lp h1 em{display:block;margin-top:6px}
+.lp .center-text{text-align:center}
+.lp .center-cta{text-align:center;margin-top:36px}
+.lp .live-note{display:inline-block;background:#e7f5ef;color:#08776e;border-radius:10px;padding:8px 12px;font-weight:750;font-size:14px;margin:0}
+
+/* Why it matters */
+.lp .why-photo{height:520px}
+.lp .stats{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:24px 0 8px}
+.lp .stat{padding:20px;border:1px solid #4c6875;border-radius:16px;background:#ffffff0c}
+.lp .stat-hi{border-color:#83ddc7;background:#83ddc71a}
+.lp .stat-num{font-size:26px;font-weight:850;letter-spacing:-.5px;color:#fff;line-height:1.2}
+.lp .stat p{margin:8px 0 0;font-size:14px;color:#d0e0e4}
+.lp .outcomes .actions{margin:20px 0 6px}
+
+/* AI practice vs a tutor */
+.lp .compare{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:stretch}
+.lp .cmp{position:relative;background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px}
+.lp .cmp h3{margin:0 0 10px;font-size:17px}
+.lp .cmp-price{font-size:22px;font-weight:850;letter-spacing:-.4px}
+.lp .cmp p{margin:10px 0 0;color:#617783;font-size:14px}
+.lp .cmp-hi{border:2px solid var(--teal);box-shadow:0 18px 40px #078a8026;background:#f4fbf8}
+.lp .compare-line{max-width:760px;margin:30px auto 0;font-size:18px}
+
+/* Pricing */
+.lp .pill{white-space:normal;line-height:1.4}
+.lp .plans{display:grid;grid-template-columns:1fr 1.12fr 1fr;gap:18px;align-items:center;max-width:1060px;margin:0 auto}
+.lp .plan{position:relative;background:#fff;border:1px solid var(--line);border-radius:22px;padding:28px;display:flex;flex-direction:column;box-shadow:0 12px 35px #173d3a0b}
+.lp .plan.featured{border:2px solid #1d6fd1;padding:36px 30px;box-shadow:0 24px 60px #1d6fd126}
+.lp .plan h3{margin:0;font-size:22px}
+.lp .plan-sub{margin:4px 0 14px;color:#617783}
+.lp .plan-price{font-size:44px;font-weight:850;letter-spacing:-1px;line-height:1.1}
+.lp .plan-price small{font-size:15px;font-weight:500;color:#6a7e85;letter-spacing:0}
+.lp .plan-price s{font-size:26px;color:#8a9ca3;font-weight:600}
+.lp .plan-inr{margin:4px 0 0;font-weight:750;color:#13665c}
+.lp .plan-week{margin:4px 0 0;font-size:13px;color:#6b8088;min-height:20px}
+.lp .plan ul{padding-left:0;list-style:none;margin:18px 0;flex:1}
+.lp .plan li{margin:9px 0;padding-left:24px;position:relative;font-size:15px}
+.lp .plan li:before{content:'✓';position:absolute;left:0;color:var(--teal);font-weight:900}
+.lp .plan .btn{width:100%;text-align:center}
+.lp .plan.featured .btn{background:#1d6fd1}
+.lp .plan.featured .btn:hover{background:#155ab0}
+.lp .plan-note{font-size:13px;font-weight:700;color:#8a5a00;background:#fff6e0;border-radius:10px;padding:8px 10px;margin:0 0 14px}
+.lp .badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:#1d6fd1;color:#fff;font-size:12px;font-weight:800;border-radius:40px;padding:5px 14px;white-space:nowrap}
+.lp .cmp-hi .badge{background:var(--teal)}
+.lp .bf-tag{color:#c2410c;font-weight:800}
+.lp .plan-price .bf-tag{font-size:15px}
+.lp .bf-countdown{color:#c2410c;font-weight:700}
+
+/* Black Friday state: .bf-ended / .bf-hide are set on <html> before first paint */
+.lp .bf-regular{display:none}
+html.bf-ended .lp .bf-regular{display:block}
+html.bf-ended .lp .bf-only{display:none}
+html.bf-hide .lp .bf-bar{display:none}
+.lp .bf-bar{background:#111c24;color:#fff;font-size:14px;display:flex;align-items:center;justify-content:center;gap:8px;padding:8px 44px;position:relative;text-align:center;line-height:1.35}
+.lp .bf-bar a{color:#fff}
+.lp .bf-bar strong{color:#ffb86b}
+.lp .bf-close{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:0;color:#cfd8dc;font-size:22px;line-height:1;width:32px;height:32px}
+
+/* Lead form modal */
+.lp .dialog h3{margin:6px 0 4px;padding-right:24px}
+.lp .dialog label{display:block;font-weight:700;font-size:14px;margin-top:8px}
+.lp .dialog input{margin:6px 0 4px;font-size:16px}
+.lp .dialog .btn{margin-top:12px}
+.lp .step-label{font-size:12px;font-weight:700;color:#6b8088}
+.lp .form-error{color:#b42318;font-weight:600;font-size:14px;margin:8px 0 0}
+.lp .dialog{max-height:calc(100vh - 40px);overflow:auto}
+
+@media(max-width:950px){.lp .compare{grid-template-columns:1fr 1fr}
+.lp .why-photo{height:380px}
+}
+@media(max-width:860px){.lp .plans{grid-template-columns:1fr;max-width:520px;gap:26px}
+.lp .plan.featured{order:-1}
+}
+@media(max-width:560px){.lp .compare,.lp .stats{grid-template-columns:1fr}
+.lp .btn.big{width:100%;text-align:center;font-size:17px;padding:17px 18px}
+.lp .actions .text-link{width:100%;text-align:center}
+.lp .bf-bar{font-size:13px;padding:7px 40px}
+.lp .logo{font-size:21px}
+.lp nav{height:62px}
+.lp .plan-price{font-size:38px}
+.lp .why-photo{height:300px}
+}

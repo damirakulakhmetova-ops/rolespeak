@@ -1,11 +1,21 @@
 import Image from "next/image";
 import Link from "next/link";
+import { BlackFridayBar, BlackFridayScript } from "@/components/landing/BlackFriday";
 import LandingPreview from "@/components/landing/LandingPreview";
 import LandingView from "@/components/landing/LandingView";
+import Pricing from "@/components/landing/Pricing";
 import "./landing-styles/landing.css";
 
-// Converted from RoleSpeak_Landing_Page_With_Photos.html: same design and copy,
-// with every main call-to-action pointing to /practice.
+// Design converted from RoleSpeak_Landing_Page_With_Photos.html. Every primary
+// call-to-action points to /practice with the same label.
+
+function MainCta() {
+  return (
+    <Link className="btn big" href="/practice">
+      Get my free score in 5 minutes
+    </Link>
+  );
+}
 
 // Portrait photos in wide frames: anchor the crop near the top so faces stay visible.
 function Photo({
@@ -34,20 +44,23 @@ function Photo({
 export default function Home() {
   return (
     <div className="lp">
+      <BlackFridayScript />
       <LandingView />
       <header>
+        <BlackFridayBar />
         <div className="wrap">
           <nav>
             <a className="logo" href="#top">
               role<span>speak</span>
             </a>
             <div className="links">
-              <a href="#why">Benefits</a>
+              <a href="#why">Why it matters</a>
               <a href="#try">Try a scenario</a>
               <a href="#how">How it works</a>
-              <a href="#price">Pricing</a>
+              <a href="#vs-tutor">vs a tutor</a>
+              <a href="#pricing">Pricing</a>
             </div>
-            <Link className="btn" href="/practice">
+            <Link className="btn outline nav-btn" href="/practice">
               Try the preview →
             </Link>
           </nav>
@@ -58,156 +71,137 @@ export default function Home() {
         <div className="hero">
           <div className="wrap hero-grid">
             <div>
-              <div className="tag">Medical English for real conversations</div>
+              <div className="tag">OET Speaking practice for nurses</div>
               <h1>
-                Your clinical skills can take you further.
-                <br />
-                <em>Let your English keep up.</em>
+                Your clinical skills can take you abroad.{" "}
+                <em>Don&apos;t let one Speaking exam hold you back.</em>
               </h1>
               <p className="lead">
-                Your next opportunity could be an overseas hospital, an OET exam, or a conversation with a
-                patient who needs reassurance. Practise speaking in realistic clinical situations — and prepare to
-                show what you know with confidence.
+                Practise the real OET role-play with an AI patient. Get a score on all 9 official criteria, a
+                predicted grade and 3 fixes — in 5 minutes.
               </p>
               <div className="actions">
-                <Link className="btn" href="/practice">
-                  Start your free practice →
-                </Link>
-                <a className="btn outline" href="#how">
-                  How it works
+                <MainCta />
+                <a className="text-link" href="#pricing">
+                  See plans →
                 </a>
               </div>
-              <p className="tiny">Interactive concept preview. Live AI voice practice is under development.</p>
-              <div className="ticks">
-                <span>Designed for healthcare roles</span>
-                <span>Flexible practice</span>
-                <span>Actionable feedback concept</span>
-              </div>
+              <p className="micro">Free first role-play · No card needed · Works best in Chrome</p>
+              <p className="trust">
+                Built around the 9 official OET Speaking criteria. The score is a practice estimate, not an official
+                OET result.
+              </p>
             </div>
             <div className="photo-frame hero-photo">
-              <Photo src="/images/hero-nurse.jpg" alt="Healthcare professional in teal scrubs" priority focus="50% 18%" />
+              <Photo src="/images/hero-nurse.jpg" alt="Nurse in teal scrubs smiling" priority focus="50% 18%" />
               <div className="photo-caption">
                 Your expertise deserves to be heard.
                 <br />
                 <span style={{ fontWeight: 400, color: "#59707b", fontSize: 12 }}>
-                  Real conversations. Professional confidence. New possibilities.
+                  Real OET role-plays. Clear feedback. New possibilities.
                 </span>
               </div>
             </div>
           </div>
         </div>
 
-        <section id="why">
+        <section className="outcomes" id="why">
+          <div className="wrap outcomes-grid">
+            <div>
+              <div className="tag" style={{ color: "#83ddc7" }}>
+                Why it matters
+              </div>
+              <h2>Same nursing skills. A very different career.</h2>
+              <div className="stats">
+                <div className="stat">
+                  <div className="stat-num">≈ $690 / month</div>
+                  <p>Entry-level government nurse in the Philippines (gross basic pay)</p>
+                </div>
+                <div className="stat stat-hi">
+                  <div className="stat-num">≈ $3,600 / month</div>
+                  <p>New Band 5 nurse in England (gross)</p>
+                </div>
+              </div>
+              <p className="lead">
+                The gap is often one Speaking exam. OET costs ≈ $410, and a retake of one part ≈ $220.
+              </p>
+              <div className="actions">
+                <MainCta />
+              </div>
+              <p className="eyebrow-note">
+                Gross pay before tax and living costs. Sources: NHS Agenda for Change 2026/27, Band 5 entry
+                £32,073/yr; Philippines Salary Grade 15 (Nurse I) 2026, ₱42,178/month; FX Nov 2026. RoleSpeak does not
+                guarantee a pass, a job, registration or relocation.
+              </p>
+            </div>
+            <div className="photo-frame why-photo">
+              <Photo
+                src="/images/outcomes.jpg"
+                alt="Nurse in a light uniform and headscarf"
+                focus="50% 20%"
+              />
+              <div className="photo-caption">Your next patient conversation could be abroad.</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="benefits">
           <div className="wrap">
             <div className="center">
               <div className="tag">Why RoleSpeak</div>
               <h2>You&apos;re already trained to care. Now practise how to communicate it.</h2>
               <p className="lead">
-                You shouldn&apos;t have to choose between expensive one-to-one speaking sessions and practising
-                alone. RoleSpeak is designed to make realistic healthcare conversations easier to rehearse.
+                You shouldn&apos;t have to choose between expensive one-to-one sessions and practising alone.
+                RoleSpeak gives you a realistic OET patient whenever you have 10 minutes.
               </p>
             </div>
             <div className="cards">
               <div className="card">
-                <div className="benefit-num">01 · RELEVANT</div>
+                <div className="benefit-num">01 · REAL FORMAT</div>
                 <div className="emoji">🩺</div>
-                <h3>Practise your actual job</h3>
-                <p>
-                  Rehearse patient consultations, reassurance, history-taking and handovers — not generic textbook
-                  dialogues.
-                </p>
+                <h3>The real OET role-play</h3>
+                <p>Read a role card for 3 minutes, then speak with an AI patient for 5 — just like exam day.</p>
               </div>
               <div className="card">
                 <div className="benefit-num">02 · FLEXIBLE</div>
                 <div className="emoji">💬</div>
                 <h3>Speak without the pressure</h3>
-                <p>
-                  Prepare for difficult questions in a private practice environment, at a time that works around
-                  your shifts.
-                </p>
+                <p>Practise difficult conversations in private, at a time that works around your shifts.</p>
               </div>
               <div className="card">
                 <div className="benefit-num">03 · ACTIONABLE</div>
                 <div className="emoji">📈</div>
                 <h3>Know what to work on</h3>
-                <p>
-                  Get planned feedback on clarity, empathy and structure, with practical suggestions for your next
-                  attempt.
-                </p>
+                <p>A score on all 9 OET Speaking criteria, a predicted grade and 3 fixes after every role-play.</p>
               </div>
               <div className="card">
                 <div className="benefit-num">04 · GOAL-FOCUSED</div>
                 <div className="emoji">🎯</div>
-                <h3>Prepare with a purpose</h3>
-                <p>
-                  Build a speaking routine around an upcoming OET exam, interview or transition into an
-                  English-speaking workplace.
-                </p>
+                <h3>Prepare for your date</h3>
+                <p>Set your exam date and build a speaking routine for the weeks before it.</p>
               </div>
             </div>
             <div className="photo-strip">
               <div className="photo-frame">
-                <Photo src="/images/doctor.jpg" alt="Doctor in a white coat" focus="50% 25%" />
-                <div className="photo-caption">For doctors</div>
-              </div>
-              <div className="photo-frame">
-                <Photo src="/images/nurse.jpg" alt="Healthcare professional in blue scrubs" focus="50% 15%" />
+                <Photo src="/images/nurse.jpg" alt="Nurse in blue scrubs" focus="50% 15%" />
                 <div className="photo-caption">For nurses</div>
               </div>
               <div className="photo-frame">
-                <Photo src="/images/global.jpg" alt="Doctor in green scrubs" focus="50% 15%" />
+                <Photo src="/images/doctor.jpg" alt="Doctor in a white coat" focus="50% 25%" />
+                <div className="photo-caption">For doctors (coming later)</div>
+              </div>
+              <div className="photo-frame">
+                <Photo src="/images/global.jpg" alt="Healthcare professional in green scrubs" focus="50% 15%" />
                 <div className="photo-caption">For future global careers</div>
               </div>
             </div>
-            <p className="section-note">
-              Initial MVP focus: OET Speaking role-play for nurses. Doctor and student scenarios shown on this page
-              illustrate possible future tracks.
-            </p>
           </div>
         </section>
 
         <section className="tint" id="try">
           <LandingPreview />
-        </section>
-
-        <section className="outcomes" id="opportunities">
-          <div className="wrap outcomes-grid">
-            <div>
-              <div className="tag" style={{ color: "#83ddc7" }}>
-                Beyond the practice session
-              </div>
-              <h2>Don&apos;t let a language barrier limit where your career could go.</h2>
-              <p className="lead">
-                Medical expertise matters. So does the ability to explain it clearly, listen with empathy and
-                respond under pressure. Consistent speaking practice can help you prepare for the moments that
-                shape your professional future.
-              </p>
-              <div className="outcome-list">
-                <div className="outcome-item">
-                  <strong>🌍 Explore international roles</strong>
-                  <span>Feel better prepared for English-language communication in overseas healthcare settings.</span>
-                </div>
-                <div className="outcome-item">
-                  <strong>📋 Approach OET Speaking prepared</strong>
-                  <span>Rehearse the structure and communication demands of a healthcare role-play.</span>
-                </div>
-                <div className="outcome-item">
-                  <strong>🤝 Connect with patients</strong>
-                  <span>Practise explaining care, responding to worries and building understanding.</span>
-                </div>
-                <div className="outcome-item">
-                  <strong>🎙️ Speak up in interviews</strong>
-                  <span>Build familiarity with discussing your experience and decisions in professional English.</span>
-                </div>
-              </div>
-              <p className="eyebrow-note">
-                These are intended learning outcomes, not guaranteed exam scores, job offers or career results.
-              </p>
-            </div>
-            <div className="photo-frame" style={{ height: 540 }}>
-              <Photo src="/images/outcomes.jpg" alt="Healthcare professional in a light uniform and headscarf" focus="50% 20%" />
-              <div className="photo-caption">More confident conversations can open new possibilities.</div>
-            </div>
+          <div className="wrap center-cta">
+            <MainCta />
           </div>
         </section>
 
@@ -216,66 +210,88 @@ export default function Home() {
             <div className="center">
               <div className="tag">How it works</div>
               <h2>Four steps from hesitation to practice.</h2>
-              <p className="lead">A repeatable routine designed around the conversations that matter in healthcare.</p>
+              <p className="lead">A repeatable routine built around the OET Speaking role-play.</p>
             </div>
             <div className="steps">
               <div className="step">
                 <b>01</b>
                 <h3>Choose your goal</h3>
-                <p>Select a professional scenario or OET Speaking practice focus.</p>
+                <p>Pick your country, exam date and a nursing scenario.</p>
               </div>
               <div className="step">
                 <b>02</b>
                 <h3>Prepare your approach</h3>
-                <p>Review the patient&apos;s situation and organise what you want to communicate.</p>
+                <p>Read the role card for 3 minutes, as in the real exam.</p>
               </div>
               <div className="step">
                 <b>03</b>
                 <h3>Speak with an AI patient</h3>
-                <p>Work through a simulated clinical conversation, responding in your own words.</p>
+                <p>A 5-minute voice role-play in your own words.</p>
               </div>
               <div className="step">
                 <b>04</b>
                 <h3>Get feedback &amp; repeat</h3>
-                <p>Review your communication, identify three areas to improve and practise again.</p>
+                <p>See your score on 9 criteria, a predicted grade and 3 fixes — then practise again.</p>
               </div>
             </div>
+          </div>
+        </section>
+
+        <section className="tint" id="vs-tutor">
+          <div className="wrap">
+            <div className="center">
+              <div className="tag">AI practice vs a tutor</div>
+              <h2>$79 buys one hour with a tutor — or 8 weeks of practice.</h2>
+            </div>
+            <div className="compare">
+              <div className="cmp">
+                <h3>OET tutor 1:1</h3>
+                <div className="cmp-price">$20–66 per hour</div>
+                <p>Human feedback, limited hours, scheduling.</p>
+              </div>
+              <div className="cmp">
+                <h3>Expert Speaking review</h3>
+                <div className="cmp-price">$99</div>
+                <p>One assessment.</p>
+              </div>
+              <div className="cmp">
+                <h3>AI patient apps by subscription</h3>
+                <div className="cmp-price">from $39.99 per month</div>
+                <p>Auto-renewal.</p>
+              </div>
+              <div className="cmp cmp-hi">
+                <span className="badge">RoleSpeak</span>
+                <h3>RoleSpeak Exam Pass</h3>
+                <div className="cmp-price">$79 once for 8 weeks</div>
+                <p>Unlimited role-plays, any time. ≈ $3.30 per role-play at 3 a week.</p>
+              </div>
+            </div>
+            <p className="lead center-text compare-line">
+              A tutor gives human judgement. RoleSpeak gives you the repetitions. Want both? Pro includes a teacher
+              review of your recording.
+            </p>
             <p className="section-note">
-              The four-step experience describes the planned voice MVP. The interactive preview on this page uses
-              text-based sample responses.
+              Marketplace OET tutors $20–35/h; Specialist Language Courses 5 × 1-hour lessons $329; E2Language 1:1
+              Speaking assessment $99; OET Live from $39.99/month. Prices checked Nov 2026.
             </p>
           </div>
         </section>
 
-        <section className="tint" id="price">
+        <section id="pricing">
           <div className="wrap">
             <div className="center">
-              <div className="tag">Proposed early-access offer</div>
-              <h2>Focused practice, on your schedule.</h2>
+              <div className="tag">Pricing</div>
+              <h2>Choose your exam plan</h2>
+              <p className="lead">One payment. No subscription. No auto-renewal.</p>
+              <span className="pill">
+                Payments open soon. Reserve your plan now — we&apos;ll email you when checkout opens.
+              </span>
             </div>
-            <div className="pricing">
-              <span className="pill">Planned offer · Not available to purchase yet</span>
-              <h3>Medical English Practice Pass</h3>
-              <div className="price">
-                $79 <small>/ 8 weeks</small>
-              </div>
-              <p className="muted">Proposed one-time access for an intensive preparation period.</p>
-              <ul>
-                <li>Healthcare-focused patient role-plays</li>
-                <li>Flexible, repeatable practice</li>
-                <li>Planned structured communication feedback</li>
-                <li>OET Speaking-oriented practice for eligible roles</li>
-                <li>No automatic renewal planned</li>
-              </ul>
-              <Link className="btn" href="/practice">
-                Express early-access interest →
-              </Link>
-              <p className="tiny">Price and features are proposals subject to validation. No payments are collected.</p>
-            </div>
+            <Pricing />
           </div>
         </section>
 
-        <section id="faq">
+        <section className="tint" id="faq">
           <div className="wrap">
             <div className="center">
               <div className="tag">FAQs</div>
@@ -283,29 +299,49 @@ export default function Home() {
             </div>
             <div className="faq">
               <details>
-                <summary>Is RoleSpeak only for nurses?</summary>
+                <summary>Is the score official?</summary>
                 <p>
-                  No. The broader concept includes doctors and other healthcare professionals. The team&apos;s
-                  initial live MVP focuses on nurse–patient OET Speaking role-plays; other tracks are planned.
+                  No. It is a practice estimate based on the 9 official OET Speaking criteria. Only OET issues
+                  official results.
                 </p>
               </details>
               <details>
-                <summary>Does RoleSpeak guarantee an OET score?</summary>
-                <p>
-                  No. Any AI feedback is for educational practice and is not an official score or guarantee of exam
-                  performance.
-                </p>
+                <summary>Do you guarantee a pass, a job or a visa?</summary>
+                <p>No. We help you practise; results depend on you, the exam and your employer.</p>
               </details>
               <details>
                 <summary>Can I talk to an AI patient here?</summary>
                 <p>
-                  This page contains an interactive text preview. Live AI voice conversation will require connecting
-                  the team&apos;s deployed MVP.
+                  Yes. The free role-play is a live voice conversation with an AI patient. It works best in Chrome
+                  with microphone access.
+                </p>
+              </details>
+              <details>
+                <summary>Why one payment instead of a subscription?</summary>
+                <p>
+                  Your preparation has an exam date. Pay once for the time you need, with no auto-renewal.
+                </p>
+              </details>
+              <details>
+                <summary>Why 8 weeks?</summary>
+                <p>
+                  Most nurses prepare 4–12 weeks before the exam; 8 weeks covers a typical preparation cycle.
+                </p>
+              </details>
+              <details className="bf-only">
+                <summary>What is the Black Friday offer?</summary>
+                <p>Pro (3 months + a teacher&apos;s review) for $79 instead of $149, Nov 27 – Dec 1.</p>
+              </details>
+              <details>
+                <summary>Is RoleSpeak only for nurses?</summary>
+                <p>
+                  For now, yes: RoleSpeak focuses on nurse–patient OET Speaking role-plays. Other healthcare tracks
+                  are planned.
                 </p>
               </details>
               <details>
                 <summary>Is this affiliated with OET?</summary>
-                <p>No. RoleSpeak is an independent educational concept and is not endorsed by OET.</p>
+                <p>No. RoleSpeak is an independent practice tool and is not endorsed by OET.</p>
               </details>
             </div>
           </div>
@@ -313,21 +349,9 @@ export default function Home() {
 
         <div className="final">
           <div className="wrap">
-            <div className="tag" style={{ color: "#8cddcb" }}>
-              Your words matter
-            </div>
-            <h2>
-              Your next opportunity starts
-              <br />
-              with a conversation.
-            </h2>
-            <p>
-              Build the confidence to communicate your clinical expertise in English — one realistic scenario at a
-              time.
-            </p>
-            <Link className="btn" href="/practice">
-              Try the preview →
-            </Link>
+            <h2>Your next patient conversation could be in London.</h2>
+            <p>Start with a free role-play and see your predicted grade today.</p>
+            <MainCta />
           </div>
         </div>
       </main>
