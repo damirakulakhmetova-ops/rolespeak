@@ -35,7 +35,7 @@ export default function Setup({ demo, profile, onProfile, scenarioId, onScenario
           Set up your roleplay
         </h1>
         <p className="mt-1 text-ink-soft">
-          You play the nurse. The AI plays the patient, by voice. You get your predicted grade in about 10 minutes.
+          You play the nurse. The AI plays the patient, by voice. You get your predicted grade after a 5-minute role-play.
         </p>
       </div>
 
